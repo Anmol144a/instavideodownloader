@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Video Downloader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Spinner Animation */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { border-top-color: #60a5fa; }
+            50% { border-top-color: #a78bfa; }
+        }
+        .spinner {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #60a5fa;
+            border-radius: 50%;
+            animation: spin 1s linear infinite, pulse 2s ease-in-out infinite;
+        }
+
+        /* Feature Card Entrance */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .feature-card {
+            animation: slideUp 0.5s ease-out forwards;
+        }
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Input Focus Animation */
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(96, 165, 250, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(96, 165, 250, 0.8); }
+        }
+        .input-focus {
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .input-focus:focus {
+            animation: glow 1.5s ease-in-out infinite;
+            transform: scale(1.02);
+        }
+
+        /* Button Click Animation */
+        @keyframes pulseClick {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+        .btn-pulse:active {
+            animation: pulseClick 0.2s ease;
+        }
+
+        /* Toast Animation */
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.9);
+            }
+            50% {
+                transform: translateY(5px) scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.9);
+            }
+        }
+        .toast {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        .toast.show {
+            animation: slideIn 0.5s ease forwards;
+        }
+        .toast.hide {
+            animation: slideOut 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-gray-800 py-6">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">Instagram Video Downloader</h1>
+            <p class="mt-2 text-lg">Download videos from public Instagram posts with ease</p>
+        </div>
+    </header>
+
+    <!-- Feature Section -->
+    <section class="py-12 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Why Use Our Downloader?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="feature-card text-center p-6 bg-gray-700 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+                    <svg class="w-12 h-12 mx-auto text-blue-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    <h3 class="text-xl font-medium mb-2">Easy Downloads</h3>
+                    <p class="text-gray-300">Simply paste the Instagram post URL and download the video in seconds.</p>
+                </div>
+                <div class="feature-card text-center p-6 bg-gray-700 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+                    <svg class="w-12 h-12 mx-auto text-blue-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <h3 class="text-xl font-medium mb-2">Fast Processing</h3>
+                    <p class="text-gray-300">Quickly fetch and process videos from public Instagram posts.</p>
+                </div>
+                <div class="feature-card text-center p-6 bg-gray-700 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+                    <svg class="w-12 h-12 mx-auto text-blue-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <h3 class="text-xl font-medium mb-2">User-Friendly</h3>
+                    <p class="text-gray-300">Intuitive interface for seamless video downloading on any device.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Form -->
+    <section class="flex-grow container mx-auto px-4 py-12">
+        <div class="max-w-lg mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold mb-6 text-center">Download Your Video</h2>
+            <div id="downloadForm" class="space-y-4">
+                <div>
+                    <label for="url" class="block text-sm font-medium text-gray-400">Instagram Post URL</label>
+                    <input type="text" id="url" name="url" placeholder="https://www.instagram.com/p/..." 
+                           class="input-focus mt-1 block w-full p-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white transition">
+                </div>
+                <button type="submit" id="downloadBtn" class="btn-pulse w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition flex items-center justify-center">
+                    Download Video
+                </button>
+            </div>
+            <div id="result" class="mt-4 text-center"></div>
+            <p class="mt-6 text-sm text-gray-400 text-center">
+                Note: This tool is for downloading videos from public Instagram posts for personal use only. 
+                Please respect Instagram's terms of service and copyright laws.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Instagram Video Downloader. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const downloadForm = document.getElementById('downloadForm');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resultDiv = document.getElementById('result');
+        const urlInput = document.getElementById('url');
+
+        // Client-side URL validation
+        const isValidInstagramUrl = (url) => {
+            const pattern = /https?:\/\/(www\.)?instagram\.com\/(p|reel)\/[A-Za-z0-9_-]+\/?/;
+            return pattern.test(url);
+        };
+
+        // Show toast notification
+        const showToast = (message, type = 'info') => {
+            const toast = document.createElement('div');
+            toast.className = `toast fixed top-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-md shadow-lg text-white ${type === 'error' ? 'bg-red-600' : type === 'success' ? 'bg-green-600' : 'bg-blue-600'}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        };
+
+        downloadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const url = urlInput.value.trim();
+
+            // Validate URL
+            if (!url) {
+                showToast('Please provide an Instagram post URL', 'error');
+                return;
+            }
+            if (!isValidInstagramUrl(url)) {
+                showToast('Invalid Instagram URL. Please use a valid post or reel URL.', 'error');
+                return;
+            }
+
+            // Show loading state with spinner
+            downloadBtn.disabled = true;
+            const spinner = document.createElement('span');
+            spinner.className = 'spinner mr-2';
+            downloadBtn.innerHTML = '';
+            downloadBtn.appendChild(spinner);
+            downloadBtn.appendChild(document.createTextNode(' Processing...'));
+            resultDiv.innerHTML = '';
+
+            try {
+                const response = await fetch('/download', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ 'url': url })
+                });
+                const data = await response.json();
+
+                if (data.error) {
+                    showToast(data.error, 'error');
+                } else {
+                    showToast('Video ready for download!', 'success');
+                    resultDiv.innerHTML = `<a href="${data.download_url}" class="text-blue-400 underline font-medium hover:text-blue-300 transition" download="${data.filename}">Click here to download the video</a>`;
+                }
+            } catch (error) {
+                showToast(`An error occurred: ${error.message}`, 'error');
+            } finally {
+                downloadBtn.disabled = false;
+                downloadBtn.innerHTML = 'Download Video';
+            }
+        });
+    </script>
